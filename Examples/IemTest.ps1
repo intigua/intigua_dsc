@@ -1,8 +1,9 @@
-configuration Test_IEM
+configuration IemTest
  {
+    Import-DscResource -ModuleName Intigua
+
     Node IEMAbsent
-    {
-        Import-DscResource -ModuleName Intigua
+    {                
         Agent IEM
         {
             AgentPath = "https://s3.amazonaws.com/intigua-dsc/Agents/Windows/iem_lw_Windows_x64_9.1_2.9.0.378.vai"
@@ -19,3 +20,5 @@ configuration Test_IEM
     }
 }
 
+IemTest
+Start-DscConfiguration -Path IemTest -Wait -Force -Verbose
