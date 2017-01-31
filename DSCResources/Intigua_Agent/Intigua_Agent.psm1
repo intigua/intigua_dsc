@@ -237,18 +237,26 @@ function Set-TargetResource
             # DownloadFile -src $AgentPath -dst $fullPath;
             
             # Build Parameters for CLI command
-            $commandParameters = "";
+            $commandParameters = "-f " ;
             foreach ($key in $AgentParameters.Keys)
             {
 	            $value = $AgentParameters.$key;
-	            $commandParameters = $commandParameters + " " + $key + ' "' + $value + '"';
+	            $commandParameters = $commandParameters + $key + ' ' + '"' + $value + '" ';
             }
-            # $commandParameters = $commandParameters + " -f"
             $intiguaPath = GetConnectorExe;            
             Write-Verbose ($VerboseMessages.DeployingAgent -f $AgentName, ($intiguaPath + ' d ' + $fullPath  + " " + $commandParameters));            
-            # &  $intiguaPath d $fullPath $commandParameters -f;
-            ## Need to add $commandParameters
-            & $intiguaPath d $fullPath -f
+			
+            # We are writing the command line into batch file because we have problem to run the following line:
+			# & $intiguaPath d $fullPath $commandParameters -f
+			# because the Connector see $commandParameters as 1 arg and it dow not split it as regular command line
+			
+			$tmpCmd = GetPathInTemp "IntiguaCommand.bat"
+            DeleteFile $tmpCmd
+			Write-Output '"'$intiguaPath'" ' d ' "'$fullPath'" ' $commandParameters | Out-File $tmpCmd -NoNewLine -encoding ASCII
+			& $tmpCmd
+			DeleteFile $tmpCmd
+			
+            
             
             
         }
