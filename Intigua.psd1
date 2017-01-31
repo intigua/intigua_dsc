@@ -93,14 +93,12 @@ PrivateData = @{
         Tags = @('DesiredStateConfiguration', 'DSC', 'DSCResourceKit', 'DSCResource', 'Intigua')
 
         # A URL to the license for this module.
-        #TBD
-        # LicenseUri = 'https://opensource.org/licenses/MIT'
+        LicenseUri = 'https://github.com/OrSmolnik/intigua_dsc/blob/master/LICENSE'
 
         # A URL to the main website for this project.
-        ProjectUri = 'https://intigua.com'
+        ProjectUri = 'https://github.com/OrSmolnik/intigua_dsc'
 
         # A URL to an icon representing this module.
-        #TBD
         IconUri = 'https://s3.amazonaws.com/intigua-graphics-for-third-party-sites/intigua_favicon_2016_for_powershell_gallery.png'
 
         # ReleaseNotes of this module
