@@ -21,13 +21,12 @@ function Convert-KeyValuePairArrayToHashtable
         [Microsoft.Management.Infrastructure.CimInstance[]]
         $array
     )
-
-    $hashtable = @{}
-    foreach($item in $array.CimInstanceProperties)
+	$hash = @{}
+    foreach ($pair in $array)
     {
-		$hashtable[$item.Name] = $item.Value
+        $hash[$pair.Key] = $pair.Value
     }
-    return $hashtable
+    return $hash
 }
 
 
@@ -335,9 +334,9 @@ function Test-TargetResource
     )
 
 
-    $AgentExist = $false
-    
     Write-Verbose ($VerboseMessages.GetAgentDetails -f $AgentName, $AgentPath, ($AgentParameters | Out-String));
+
+    $AgentExist = $false
     $intiguaPath = GetConnectorExe;
     $AgentExist = IsAgentExist -AgentName $AgentName -IntiguaPath $intiguaPath;
 
