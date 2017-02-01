@@ -335,7 +335,7 @@ function Test-TargetResource
     )
 
 
-    $AgentExist = False
+    $AgentExist = $false
     
     Write-Verbose ($VerboseMessages.GetAgentDetails -f $AgentName, $AgentPath, ($AgentParameters | Out-String));
     $intiguaPath = GetConnectorExe;
