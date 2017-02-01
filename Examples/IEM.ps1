@@ -1,4 +1,4 @@
-configuration InstallIem
+configuration IEM
  {
     Import-DscResource -ModuleName Intigua
 
@@ -36,4 +36,4 @@ configuration InstallIem
     }
 }
 
-InstallIem
+IEM
