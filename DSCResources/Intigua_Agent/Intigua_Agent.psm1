@@ -13,6 +13,22 @@
 
 . Initialize;
 
+# Converts CimInstance array of type KeyValuePair to hashtable
+function Convert-KeyValuePairArrayToHashtable
+{
+    param (
+        [parameter(Mandatory = $true)]
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $array
+    )
+
+    $hashtable = @{}
+    foreach($item in $array.CimInstanceProperties)
+    {
+		$hashtable[$item.Name] = $item.Value
+    }
+    return $hashtable
+}
 
 
 Data VerboseMessages {
@@ -138,25 +154,31 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory)]
+        [parameter(Mandatory = $true)]
         [System.String] $AgentPath,
 
-        [parameter(Mandatory)]
+        [parameter(Mandatory = $true)]
         [System.String] $AgentName,
 
-        [parameter(Mandatory)]
-        [System.Collections.Hashtable] $AgentParameters,
+        [parameter(Mandatory = $true)]
+        [Microsoft.Management.Infrastructure.CimInstance[]] $AgentParameters,
 		
-        [System.String] $EnableMemoryAndCPUControl = "True",
+        [parameter(Mandatory = $false)]
+        [Bool] $EnableMemoryAndCPUControl = $true,
 		
+        [parameter(Mandatory = $false)]
         [uint32] $KeepManagedAgentCPUUtilizationUnder = 30,
 		
+        [parameter(Mandatory = $false)]
         [uint32] $LimitManagedAgentMemoryConsumptionTo = 512,
 		
-        [System.String] $AutomaticallyStartAgentUponFailure = "True",
+        [parameter(Mandatory = $false)]
+        [Bool] $AutomaticallyStartAgentUponFailure = $true,
 		
+        [parameter(Mandatory = $false)]
         [uint32] $MaximumNumberOfAutoStartsInADay = 10,
-		
+
+        [parameter(Mandatory = $false)]		
         [System.String] $IntiguaLogLevel = "Error",
 
         [parameter(Mandatory = $true)]
@@ -188,30 +210,36 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory)]
+        [parameter(Mandatory = $true)]
         [System.String] $AgentPath,
 
-        [parameter(Mandatory)]
+        [parameter(Mandatory = $true)]
         [System.String] $AgentName,
 
-        [parameter(Mandatory)]
-        [System.Collections.Hashtable] $AgentParameters,
+        [parameter(Mandatory = $true)]
+        [Microsoft.Management.Infrastructure.CimInstance[]] $AgentParameters,
 		
-        [System.String] $EnableMemoryAndCPUControl = "True",
+        [parameter(Mandatory = $false)]
+        [Bool] $EnableMemoryAndCPUControl = $true,
 		
+        [parameter(Mandatory = $false)]
         [uint32] $KeepManagedAgentCPUUtilizationUnder = 30,
 		
+        [parameter(Mandatory = $false)]
         [uint32] $LimitManagedAgentMemoryConsumptionTo = 512,
 		
-        [System.String] $AutomaticallyStartAgentUponFailure = "True",
+        [parameter(Mandatory = $false)]
+        [Bool] $AutomaticallyStartAgentUponFailure = $true,
 		
+        [parameter(Mandatory = $false)]
         [uint32] $MaximumNumberOfAutoStartsInADay = 10,
-		
+
+        [parameter(Mandatory = $false)]		
         [System.String] $IntiguaLogLevel = "Error",
 
         [parameter(Mandatory = $true)]
         [ValidateSet("Present","Absent")]
-        [System.String]$Ensure
+        [System.String] $Ensure
     )
 
     Write-Verbose ($VerboseMessages.GetAgentDetails -f $AgentName, $AgentPath, ($AgentParameters | Out-String));
@@ -237,10 +265,13 @@ function Set-TargetResource
             DownloadFile -src $AgentPath -dst $fullPath;
             
             # Build Parameters for CLI command
+
+            $AgentParametersHashtable = Convert-KeyValuePairArrayToHashtable -array $AgentParameters
+
             $commandParameters = "-f " ;
-            foreach ($key in $AgentParameters.Keys)
+            foreach ($key in $AgentParametersHashtable.Keys)
             {
-	            $value = $AgentParameters.$key;
+	            $value = $AgentParametersHashtable.$key;
 	            $commandParameters = $commandParameters + $key + ' ' + '"' + $value + '" ';
             }
             $intiguaPath = GetConnectorExe;            
@@ -271,25 +302,31 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory)]
+        [parameter(Mandatory = $true)]
         [System.String] $AgentPath,
 
-        [parameter(Mandatory)]
+        [parameter(Mandatory = $true)]
         [System.String] $AgentName,
 
-        [parameter(Mandatory)]
-        [System.Collections.Hashtable] $AgentParameters,
+        [parameter(Mandatory = $true)]
+        [Microsoft.Management.Infrastructure.CimInstance[]] $AgentParameters,
 		
-        [System.String] $EnableMemoryAndCPUControl = "True",
+        [parameter(Mandatory = $false)]
+        [Bool] $EnableMemoryAndCPUControl = $true,
 		
+        [parameter(Mandatory = $false)]
         [uint32] $KeepManagedAgentCPUUtilizationUnder = 30,
 		
+        [parameter(Mandatory = $false)]
         [uint32] $LimitManagedAgentMemoryConsumptionTo = 512,
 		
-        [System.String] $AutomaticallyStartAgentUponFailure = "True",
+        [parameter(Mandatory = $false)]
+        [Bool] $AutomaticallyStartAgentUponFailure = $true,
 		
+        [parameter(Mandatory = $false)]
         [uint32] $MaximumNumberOfAutoStartsInADay = 10,
-		
+
+        [parameter(Mandatory = $false)]		
         [System.String] $IntiguaLogLevel = "Error",
 
         [parameter(Mandatory = $true)]
@@ -315,8 +352,6 @@ function Test-TargetResource
         # Because the Ensure is "Absent" we need to return True if the agent does not exist
         return -Not $AgentExist;
     }
-
-
 
 } # Test-TargetResource
 
