@@ -30,4 +30,4 @@ You can retrieve Resource through [PoweShellGet](https://www.powershellgallery.c
 DirectoryName | Description
 ----|----
 DSCResource | Contains DSC Resource source code.
-Example | Contains examples of usage for the DSC resources
+Example | Contains examples of usage for the DSC resources.
