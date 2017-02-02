@@ -6,7 +6,7 @@ configuration IEM
     {                
         Agent IEM
         {
-            AgentPath = "https://s3.amazonaws.com/intigua-dsc/Agents/Windows/iem_lw_Windows_x64_9.1_2.9.0.378.vai"
+            AgentPath = "https://intiguadsc.blob.core.windows.net/agents/iem_lw_Windows_x64_9.1_2.9.0.378.vai"
             AgentName = "iem"
             AgentParameters = @{ACTIVE_SITE_PATH="c:\ActionSite.afxm"}
             EnableMemoryAndCPUControl = $true
@@ -22,7 +22,7 @@ configuration IEM
     {                
         Agent IEM
         {
-            AgentPath = "https://s3.amazonaws.com/intigua-dsc/Agents/Windows/iem_lw_Windows_x64_9.1_2.9.0.378.vai"
+            AgentPath = "https://intiguadsc.blob.core.windows.net/agents/iem_lw_Windows_x64_9.1_2.9.0.378.vai"
             AgentName = "iem"
             AgentParameters = @{ACTIVE_SITE_PATH="c:\ActionSite.afxm"}
             EnableMemoryAndCPUControl = $true
