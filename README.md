@@ -25,6 +25,8 @@ You can retrieve Resource through [PoweShellGet](https://www.powershellgallery.c
 - **`[String]` Ensure** _(Write)_: Determines whether the Agent should exist or not. { Present | Absent }. Defaults to Present.
 
 
+## Directory tree
+
 DirectoryName | Description
 ----|----
 DSCResource | Contains DSC Resource source code.
