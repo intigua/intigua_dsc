@@ -6,7 +6,7 @@ The **Intigua** module is a part of the Windows PowerShell Desired State Configu
 
 ## Installation
 
-You can retrieve Resource through [PoweShellGet](https://www.powershellgallery.com/packages/GraniResource).
+You can retrieve Resource through [PoweShellGet](https://www.powershellgallery.com/packages/Intigua).
 
 ## Resources
 
