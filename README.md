@@ -11,6 +11,7 @@ You can retrieve Resource through [PoweShellGet](https://www.powershellgallery.c
 ## Resources
 
 - **Agent**: Install an Managed Agent.
+- **Connector**: Install Intigua Connector.
 
 ### Agent
 - **`[String]` AgentName** _(Key)_: Agent name.
@@ -24,9 +25,12 @@ You can retrieve Resource through [PoweShellGet](https://www.powershellgallery.c
 - **`[String]` IntiguaLogLevel** _(Write)_: Intigua log level. {Trace | Debug | info | Warning | Error | Fatal}.
 - **`[String]` Ensure** _(Write)_: Determines whether the Agent should exist or not. { Present | Absent }. Defaults to Present.
 
+### Connector
+- **`[String]` ConnectorVersion** _(Key)_: Full Connector Version.
+- **`[String]` CoreServerUrl** _(Write)_: Core Server URL.
+- **`[String]` Ensure** _(Write)_: Determines whether the Agent should exist or not. { Present | Absent }. Defaults to Present.
 
 ## Directory tree
-
 DirectoryName | Description
 ----|----
 DSCResource | Contains DSC Resource source code.
