@@ -103,12 +103,16 @@ function GetConnectorExe
 {
     [OutputType([string])]
     [CmdletBinding()]
-
-    $IntiguaRootDir = (Get-ItemProperty "hklm:\VMI\setup\").IntiguaRootDir;
     
+    param( )
     # Get Intigua.exe path
     $IntiguaRootDir = (Get-ItemProperty "hklm:\VMI\setup\").IntiguaRootDir;
-    $intiguaPath = Join-Path $IntiguaRootDir "..\Intigua-Utils\Intigua.exe" -Resolve -ErrorAction SilentlyContinue;
+    try{
+        $intiguaPath = Join-Path $IntiguaRootDir "..\Intigua-Utils\Intigua.exe" -Resolve -ErrorAction SilentlyContinue;
+    } catch {
+        throw New-Object System.IO.FileNotFoundException ($ErrorMessages.DidNotFindIntiguaExe);
+    }
+    
 
     # Check that Intigua.exe is exist
     if (-Not $intiguaPath)
