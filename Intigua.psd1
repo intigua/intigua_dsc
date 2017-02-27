@@ -1,8 +1,4 @@
-#
 # Module manifest for module 'Intigua'
-#
-# Generated on: 6/14/2015
-#
 
 @{
 
@@ -10,7 +6,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.0.0.7'
+ModuleVersion = '1.0.0.11'
 
 # ID used to uniquely identify this module
 GUID = '1900c8ac-3c76-4cfb-82b9-c1a2726c9a27'
@@ -93,16 +89,16 @@ PrivateData = @{
         Tags = @('DesiredStateConfiguration', 'DSC', 'DSCResourceKit', 'DSCResource', 'Intigua')
 
         # A URL to the license for this module.
-        LicenseUri = 'https://github.com/OrSmolnik/intigua_dsc/blob/master/LICENSE'
+        LicenseUri = 'https://github.com/intigua/intigua_dsc/blob/master/LICENSE'
 
         # A URL to the main website for this project.
-        ProjectUri = 'https://github.com/OrSmolnik/intigua_dsc'
+        ProjectUri = 'https://github.com/intigua/intigua_dsc'
 
         # A URL to an icon representing this module.
         IconUri = 'https://s3.amazonaws.com/intigua-graphics-for-third-party-sites/intigua_favicon_2016_for_powershell_gallery.png'
 
         # ReleaseNotes of this module
-        ReleaseNotes = ''
+        ReleaseNotes = 'Connector has been added as a DSC Resource'
 
     } # End of PSData hashtable
 
