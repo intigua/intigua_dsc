@@ -42,4 +42,4 @@ DSCResource | Contains DSC Resource source code.
 Example | Contains examples of usage for the DSC resources.
 
 ## Notes
-1. The Connector DSC Resoruce does not support re-configuration if Connector is already installed on the machine.
+* The Connector DSC Resoruce does not support re-configuration if Connector is already installed on the machine.
