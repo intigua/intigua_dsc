@@ -6,7 +6,7 @@ The **Intigua** module is a part of the Windows PowerShell Desired State Configu
 
 ## Installation
 
-You can retrieve Resource through [PoweShellGet](https://www.powershellgallery.com/packages/Intigua).
+You can retrieve Resource through [PoweShellGallery](https://www.powershellgallery.com/packages/Intigua).
 
 ## Resources
 
@@ -17,18 +17,23 @@ You can retrieve Resource through [PoweShellGet](https://www.powershellgallery.c
 - **`[String]` AgentName** _(Key)_: Agent name.
 - **`[String]` AgentPath** _(Write)_: Agent path.
 - **`[MSFT_KeyValuePair]` AgentParameters** _(Write)_: Agent parameters.
-- **`[Boolean]` EnableMemoryAndCPUControl** _(Write)_: Enable memory and CPU control.
-- **`[Uint32]` KeepManagedAgentCPUUtilizationUnder** _(Write)_: Keep managed agent CPU utilization under.
-- **`[Uint32]` LimitManagedAgentMemoryConsumptionTo** _(Write)_: Limit managed agent memory consumption to.
-- **`[Boolean]` AutomaticallyStartAgentUponFailure** _(Write)_: Automatically start agent upon failure.
-- **`[Uint32]` MaximumNumberOfAutoStartsInADay** _(Write)_: Maximum number of auto starts in a day.
-- **`[String]` IntiguaLogLevel** _(Write)_: Intigua log level. {Trace | Debug | info | Warning | Error | Fatal}.
-- **`[String]` Ensure** _(Write)_: Determines whether the Agent should exist or not. { Present | Absent }. Defaults to Present.
+- **`[Boolean]` EnableMemoryAndCPUControl** _(Write)_: Enable memory and CPU control. _(optional)_
+- **`[Uint32]` KeepManagedAgentCPUUtilizationUnder** _(Write)_: Keep managed agent CPU utilization under. _(optional)_
+- **`[Uint32]` LimitManagedAgentMemoryConsumptionTo** _(Write)_: Limit managed agent memory consumption to. _(optional)_
+- **`[Boolean]` AutomaticallyStartAgentUponFailure** _(Write)_: Automatically start agent upon failure. _(optional)_
+- **`[Uint32]` MaximumNumberOfAutoStartsInADay** _(Write)_: Maximum number of auto starts in a day. _(optional)_
+- **`[String]` IntiguaLogLevel** _(Write)_: Intigua log level. {Trace | Debug | info | Warning | Error | Fatal}. _(optional)_
+- **`[String]` Ensure** _(Write)_: Determines whether the Agent should exist or not. {Present | Absent}. Defaults to Present.
 
 ### Connector
 - **`[String]` ConnectorVersion** _(Key)_: Full Connector Version.
 - **`[String]` CoreServerUrl** _(Write)_: Core Server URL.
-- **`[String]` Ensure** _(Write)_: Determines whether the Agent should exist or not. { Present | Absent }. Defaults to Present.
+- **`[String]` FallbackCoreServerUrl** _(Write)_: Fallback Core Server URL. _(optional)_
+- **`[Boolean]` ThrottlingEnabled** _(Write)_: Enable Throttling. _(optional)_
+- **`[Uint32]` MaxCpuPercent** _(Write)_: Total allowed CPU utilization by all managed agent containers. _(optional)_
+- **`[Uint32]` MaxMemoryKB** _(Write)_: Total allowed memory consumption by all managed agent containers. _(optional)_
+- **`[String]` InstallLocation** _(Write)_: "Connector install location. _(optional)_
+- **`[String]` Ensure** _(Write)_: Determines whether the Agent should exist or not. {Present | Absent}. Defaults to Present.
 
 ## Directory tree
 DirectoryName | Description
