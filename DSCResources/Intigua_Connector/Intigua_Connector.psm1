@@ -181,6 +181,21 @@ function Get-TargetResource
         [parameter(Mandatory = $true)]
         [System.String] $CoreServerUrl,
 
+        [parameter(Mandatory = $false)]
+        [System.String] $FallbackCoreServerUrl = "",
+
+        [parameter(Mandatory = $false)]
+        [Bool] $ThrottlingEnabled = $true,
+
+        [parameter(Mandatory = $false)]
+        [uint32] $MaxCpuPercent = 50,
+
+        [parameter(Mandatory = $false)]
+        [uint32] $MaxMemoryKB = 1000000,
+
+        [parameter(Mandatory = $false)]
+        [System.String] $InstallLocation = "%ProgramFiles%",
+
         [parameter(Mandatory = $true)]
         [ValidateSet("Present","Absent")]
         [System.String] $Ensure
@@ -192,6 +207,11 @@ function Get-TargetResource
         ConnectorVersion = $ConnectorVersion
         Ensure = $Ensure
         CoreServerUrl = $CoreServerUrl
+        FallbackCoreServerUrl = $FallbackCoreServerUrl
+        ThrottlingEnabled = $ThrottlingEnabled
+        MaxCpuPercent = $MaxCpuPercent
+        MaxMemoryKB = $MaxMemoryKB
+        InstallLocation = $InstallLocation
     }
     $returnValue
 } # Get-TargetResource
@@ -208,6 +228,21 @@ function Set-TargetResource
 
         [parameter(Mandatory = $true)]
         [System.String] $CoreServerUrl,
+
+        [parameter(Mandatory = $false)]
+        [System.String] $FallbackCoreServerUrl = "",
+
+        [parameter(Mandatory = $false)]
+        [Bool] $ThrottlingEnabled = $true,
+
+        [parameter(Mandatory = $false)]
+        [uint32] $MaxCpuPercent = 50,
+
+        [parameter(Mandatory = $false)]
+        [uint32] $MaxMemoryKB = 1000000,
+
+        [parameter(Mandatory = $false)]
+        [System.String] $InstallLocation = "%ProgramFiles%",
 
         [parameter(Mandatory = $true)]
         [ValidateSet("Present","Absent")]
@@ -238,9 +273,17 @@ function Set-TargetResource
             DeleteFile $fullPath;
             $downloadUrl = "https://intiguadsc.blob.core.windows.net/connector/vlink-win-win32_x64-Release-{0}.exe" -f $ConnectorVersion
             DownloadFile -src $downloadUrl -dst $fullPath;
+                        
+            if ($FallbackCoreServerUrl) { $CoreServerUrl = $CoreServerUrl + ";" + $FallbackCoreServerUrl }
+
+            $argCoreServerUrl = "-coreserverurl={0}" -f $CoreServerUrl
+            $argThrottlingEnabled = "-cfg=globalThrottleCfg.endPointThrottlingEnabled:{0}" -f $ThrottlingEnabled
+            $argMaxCpuPercent = "-cfg=globalThrottleCfg.maxCpuPercent:{0}" -f $MaxCpuPercent
+            $argMaxMemoryKB = "-cfg=globalThrottleCfg.maxMemoryKB:{0}" -f $MaxMemoryKB
+            $argInstallLocation = "-locations={0}" -f $InstallLocation
             
-            $arg1 = "-coreserverurl={0}" -f $CoreServerUrl
-			& $fullPath $arg1
+            Write-Verbose ("Going to run folowing install command: " + $fullPath + $argCoreServerUrl + $argThrottlingEnabled + $argMaxCpuPercent + $argMaxMemoryKB + $argInstallLocation + " -cfg=globalThrottleCfg.serverBusyThreshold:60 -cfg=globalThrottleCfg.throttleEngageTimeSeconds:5 -cfg=globalThrottleCfg.throttleDisengageTimeSeconds:300")
+			& $fullPath $argCoreServerUrl $argThrottlingEnabled $argMaxCpuPercent $argMaxMemoryKB $argInstallLocation "-cfg=globalThrottleCfg.serverBusyThreshold:60" "-cfg=globalThrottleCfg.throttleEngageTimeSeconds:5" "-cfg=globalThrottleCfg.throttleDisengageTimeSeconds:300"
 			
             Start-Sleep -s 10
             DeleteFile $fullPath;
@@ -294,6 +337,21 @@ function Test-TargetResource
 
         [parameter(Mandatory = $true)]
         [System.String] $CoreServerUrl,
+
+        [parameter(Mandatory = $false)]
+        [System.String] $FallbackCoreServerUrl = "",
+
+        [parameter(Mandatory = $false)]
+        [Bool] $ThrottlingEnabled = $true,
+
+        [parameter(Mandatory = $false)]
+        [uint32] $MaxCpuPercent = 50,
+
+        [parameter(Mandatory = $false)]
+        [uint32] $MaxMemoryKB = 1000000,
+
+        [parameter(Mandatory = $false)]
+        [System.String] $InstallLocation = "%ProgramFiles%",
 
         [parameter(Mandatory = $true)]
         [ValidateSet("Present","Absent")]
